@@ -1,0 +1,17 @@
+# The Docker App Container's development entrypoint.
+# This is a script used by the project's Docker development environment to
+# setup the app containers and databases upon runnning.
+
+set -e
+
+: ${APP_PATH:="/app"}
+: ${APP_TEMP_PATH:="$APP_PATH/tmp"}
+
+# In case of a bad reset, delete pid file
+if [ -e /$APP_TEMP_PATH/tmp/pids/server.pid ] 
+then rm /$APP_TEMP_PATH/pids/server.pid
+fi
+
+# Check gems
+bundle
+
